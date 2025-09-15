@@ -1,0 +1,1 @@
+String spCredentials = "_spCredentials";
