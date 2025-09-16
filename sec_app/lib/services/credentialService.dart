@@ -24,4 +24,21 @@ class CredentialService {
     );
     return true;
   }
+
+  Credential buildCredential(
+    String imapServerHost,
+    int imapServerPort,
+    bool imapServerSecure,
+    String email,
+    String password,
+  ) {
+    Credential c = Credential(
+      username: email,
+      password: password,
+      imapServer: imapServerHost,
+      imapPort: imapServerPort,
+      isImapSecure: imapServerSecure,
+    );
+    return c;
+  }
 }

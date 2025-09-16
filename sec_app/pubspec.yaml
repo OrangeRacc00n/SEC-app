@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  flutter_resizable_container: ^4.2.0
   flutter_secure_storage: ^9.2.4
   mockito: ^5.5.1
   shared_preferences: ^2.5.3

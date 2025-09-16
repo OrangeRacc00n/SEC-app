@@ -14,6 +14,20 @@ class AuthenticationBloc
       if (state is Unauthenticated) {
         emit(AuthLoading());
       }
+
+      Credential? res = await authenticationrepository.tryLogin(
+        event.imapServer,
+        event.imapPort,
+        true,
+        event.username,
+        event.password,
+      );
+
+      if (res != null) {
+        emit(Authenticated(currentCredentials: [res]));
+      } else {
+        emit(Unauthenticated());
+      }
     });
 
     on<CheckAccountEvent>((event, emit) async {
