@@ -4,7 +4,9 @@ import 'package:sec_app/pages/addAccountPage.dart';
 import 'package:sec_app/pages/emailListPage.dart';
 import 'package:sec_app/pages/loadingPage.dart';
 import 'package:sec_app/repository/authentication.repository.dart';
+import 'package:sec_app/repository/email.repository.dart';
 import 'package:sec_app/state/auth.state.dart';
+import 'package:sec_app/state/email.state.dart';
 
 void main() {
   runApp(const MainApp());
@@ -42,7 +44,18 @@ class SecApp extends StatelessWidget {
           return AddAccountPage();
         }
         if (state is Authenticated) {
-          return EmailListPage();
+          final EmailRepository emailRepository = EmailRepository();
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => EmailBloc(
+                  emailRepository: emailRepository,
+                  authenticatedState: state,
+                ),
+              ),
+            ],
+            child: EmailListPage(),
+          );
         }
         return Scaffold(body: Center(child: Text("HELO")));
       },
