@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sec_app/components/emailView/emailFolder.dart';
 import 'package:sec_app/state/email.state.dart';
 
 class LeftSidebar extends StatelessWidget {
-  const LeftSidebar({super.key});
+  final String selectedAccount;
+  const LeftSidebar({super.key, required this.selectedAccount});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +28,16 @@ class LeftSidebar extends StatelessWidget {
                   ),
                 ],
               ),
-              ...((state.emails["orangeraccoon@brohosoft.com"])?.folders ?? [])
-                  .map((x) => Text(x.name))
+              ...((state.emails[selectedAccount])?.folders ?? [])
+                  .map(
+                    (x) => EmailFolder(
+                      mailBox: x,
+                      messages:
+                          state.emails[selectedAccount]?.messages[x
+                              .encodedName] ??
+                          [],
+                    ),
+                  )
                   .toList(),
             ],
           );
